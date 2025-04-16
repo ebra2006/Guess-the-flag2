@@ -1,0 +1,32 @@
+name: Build APK
+
+on:
+  push:
+    branches:
+      - main  # عند كل push على الفرع الرئيسي
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # أو أي نظام تشغيل تفضله
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2  # عشان يطلع الكود من المستودع
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'  # ممكن تغير النسخة لو عاوز
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        sudo apt-get install -y build-essential
+        sudo apt-get install -y libssl-dev libffi-dev python3-dev
+        pip install --upgrade pip
+        pip install buildozer
+
+    - name: Run buildozer
+      run: |
+        buildozer -v android debug  # هتنفذ الأمر ده لعمل البنية للـ APK
