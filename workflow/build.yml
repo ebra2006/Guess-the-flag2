@@ -3,20 +3,20 @@ name: Build APK
 on:
   push:
     branches:
-      - main  # عند كل push على الفرع الرئيسي
+      - main  # هذا يعني أن GitHub سيقوم ببناء APK في كل مرة تقوم بعمل push على الفرع الرئيسي
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # أو أي نظام تشغيل تفضله
+    runs-on: ubuntu-latest  # سيتم تنفيذ الأوامر على سيرفر يعمل بنظام Ubuntu
 
     steps:
     - name: Check out code
-      uses: actions/checkout@v2  # عشان يطلع الكود من المستودع
+      uses: actions/checkout@v2  # للحصول على الكود من المستودع
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'  # ممكن تغير النسخة لو عاوز
+        python-version: '3.8'  # يمكنك تغيير النسخة إلى أي نسخة تحتاجها
 
     - name: Install dependencies
       run: |
@@ -29,4 +29,4 @@ jobs:
 
     - name: Run buildozer
       run: |
-        buildozer -v android debug  # هتنفذ الأمر ده لعمل البنية للـ APK
+        buildozer -v android debug  # هذا الأمر سيقوم بعمل APK باستخدام Buildozer
